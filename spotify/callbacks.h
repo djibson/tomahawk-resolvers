@@ -29,7 +29,7 @@
 #include "spotifyresolver.h"
 
 #include <libspotify/api.h>
-
+#include "spotifyplaylists.h"
 #include <QString>
 #include <QDebug>
 #include <QPair>
@@ -52,6 +52,7 @@ static void SP_CALLCONV loggedIn(sp_session *session, sp_error error)
     if (error == SP_ERROR_OK) {
         qDebug() << "Logged in successfully!!";
         sApp->setLoggedIn( true );
+        new SpotifyPlaylist( session );
         return;
     }
 
@@ -204,7 +205,7 @@ static void SP_CALLCONV searchComplete( sp_search *result, void *userdata )
     QVariantList results;
 
     // TODO search by popularity!
-//     qDebug() << "Got num results:" << sp_search_num_tracks( result );
+     qDebug() << "Got num results:" << sp_search_num_tracks( result );
     if( sp_search_num_tracks( result ) > 0 ) {// we have a result
         int num = qMin( sp_search_num_tracks( result ), 25 );
         for( int i = 0; i < num; i++ ) {

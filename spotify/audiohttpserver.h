@@ -29,6 +29,9 @@
 
 #include <QObject>
 #include "qxtwebslotservice.h"
+#include "spotifyplaylists.h"
+#include <QxtWebPageEvent>
+#include <libspotify/api.h>
 
 class QxtWebRequestEvent;
 class QxtWebPageEvent;
@@ -43,11 +46,19 @@ public:
     QString urlForID( const QString& id );
 
 public slots:
-    void sid(QxtWebRequestEvent* event, QString a);
+    void sid( QxtWebRequestEvent* event, QString a );
+    void playlist( QxtWebRequestEvent* event );
+private slots:
+    void checkForLoaded();
 
 private:
+    void startStreamingResponse( QxtWebRequestEvent* event, sp_track* );
     void sendErrorResponse( QxtWebRequestEvent* event );
 
+    // If we need to wait for them to be loaded. Ugh.
+    QxtWebRequestEvent* m_savedEvent;
+    sp_track* m_savedTrack;
+    SpotifyPlaylist *m_pl;
     int m_port;
 };
 

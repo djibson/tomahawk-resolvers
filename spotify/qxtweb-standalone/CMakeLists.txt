@@ -41,6 +41,8 @@ SET( sources
         # Ripped bits of QxtCore:
         ${qxtweb}/qxtmetaobject.cpp
         ${qxtweb}/qxtnull.cpp
+        ${qxtweb}/qxtjson.cpp
+
 )
 
 SET( headers
@@ -68,6 +70,8 @@ SET( headers
 #        ${qxtweb}/qxtboundfunctionbase.h
 #        ${qxtweb}/qxtboundcfunction.h
 #        ${qxtweb}/qxtmetatype.h
+        ${qxtweb}/qxtjson.h
+
 )
 
 qt4_wrap_cpp( mocstuff ${headers} )
